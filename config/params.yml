@@ -1,0 +1,49 @@
+preprocessing:
+  map_merge_columns:
+    age: ['birth_259D', 'dateofbirth_337D']
+  map_bins_columns:
+    age: [ 35, 55 ]
+  map_replace_rare_values:
+    lastapprcommoditycat_1041M: 0.001
+    lastcancelreason_561M: 0.001
+    lastrejectcommoditycat_161M: 0.001
+    mode_cancelreason_3545846M: 0.001
+    mode_classificationofcontr_400M: 0.0001
+    mode_contractst_964M: 0.0002
+    mode_financialinstitution_382M: 0.001
+    mode_financialinstitution_591M: 0.0001
+  corr_matrix_settings:
+    enable: true
+    threshold: 0.9
+  drop_columns: ["case_id"]
+  groups_column: WEEK_NUM
+  train_path: ../data/raw/train.parquet
+  unique_values_path: ../data/processed/unique_values.json
+  train_path_proc: ../data/processed/train.parquet
+  test_path_proc: ../data/processed/test.parquet
+  target_column: target
+  random_state: 10
+  test_size: 0.25
+
+train:
+  random_state: 10
+  target_column: target
+  groups_column: WEEK_NUM
+  model_path: ../models/model_lgb.joblib
+  study_path: ../models/study.joblib
+  metrics_path: ../report/metrics.json
+  params_path: ../report/best_params.json
+  optuna_enable: true
+  optuna_n_estimators: 500
+  optuna_n_trials: 30
+  n_folds: 5
+
+prediction:
+  predict_path: ../data/test/test.parquet
+  predicted_path: ../data/test/predicted.parquet
+
+endpoints:
+#  train: 'http://fastapi:8500/train'
+#  predict: 'http://fastapi:8500/predict'
+  train: 'http://localhost:8500/train'
+  predict: 'http://localhost:8500/predict'

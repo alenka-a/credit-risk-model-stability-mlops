@@ -43,7 +43,5 @@ prediction:
   predicted_path: ../data/test/predicted.parquet
 
 endpoints:
-#  train: 'http://fastapi:8500/train'
-#  predict: 'http://fastapi:8500/predict'
-  train: 'http://localhost:8500/train'
-  predict: 'http://localhost:8500/predict'
+  train: 'http://fastapi:8500/train'
+  predict: 'http://fastapi:8500/predict'
